@@ -1,0 +1,20 @@
+banner:
+  charset: UTF-8
+server:
+  port: 8080
+  context-path: /myBoot
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  messages:
+    encoding: UTF-8
+app:
+  sb: Spring Boot
+  name: app
+  des: "Hello ${app.sb}, ${app.name}!"
+
