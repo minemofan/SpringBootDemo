@@ -1,6 +1,6 @@
 package common.javacore;
 
-import com.common.javacore.ThreadPool;
+import com.common.javacore.pool.ThreadPool;
 
 /**
  * Created by Administrator on 2017/7/22.

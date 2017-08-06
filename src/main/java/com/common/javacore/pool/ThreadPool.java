@@ -1,4 +1,4 @@
-package com.common.javacore;
+package com.common.javacore.pool;
 
 import java.util.LinkedList;
 import java.util.List;

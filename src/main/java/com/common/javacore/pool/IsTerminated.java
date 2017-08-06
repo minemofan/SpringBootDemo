@@ -1,12 +1,9 @@
-package com.common.javacore;
+package com.common.javacore.pool;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Administrator on 2017/7/22.
@@ -24,7 +21,7 @@ public class IsTerminated {
         ExecutorService exe = Executors.newFixedThreadPool(3);
         try {
             int threadNum = 0;
-            for(int i=0;i<10;i++){
+            for(int i=0;i<7;i++){
                 threadNum++;
                 final int currentThreadNum = threadNum;
                 exe.execute(new Runnable() {
@@ -42,8 +39,8 @@ public class IsTerminated {
                 });
             }
             System.out.println("已经开启所有的子线程");
-            exe.shutdown();
-           // exe.awaitTermination(1, TimeUnit.MINUTES);
+           exe.shutdown();
+            //  exe.awaitTermination(1, TimeUnit.MINUTES);
             System.out.println("shutdown()：启动一次顺序关闭，执行以前提交的任务，但不接受新任务。");
             while(true){
                 if(exe.isTerminated()){
@@ -64,7 +61,7 @@ public class IsTerminated {
         ExecutorService exe = Executors.newFixedThreadPool(3);
         try {
             int threadNum = 0;
-            for(int i=0;i<10;i++){
+            for(int i=0;i<7;i++){
                 threadNum++;
                 final int currentThreadNum = threadNum;
                 exe.execute(new Runnable() {
