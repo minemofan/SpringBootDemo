@@ -1,9 +1,11 @@
-package com.common.javacore.binaryTree;
+package com.common.javacore.arithmetic.binaryTree;
 
 /**
+ * Description  二叉树遍历
  * Created by Administrator on 2017/8/6.
  */
 public class binaryTree {
+
 
     public static void main(String[] args){
         /* 构造一棵树
@@ -20,10 +22,11 @@ public class binaryTree {
         tree.insert(0, 550);
         tree.insert(8, 520);
 
+
         //前序遍历这棵树   预期50 20 4 0 8 540
         TREE_NO = 0;
         preOrderTraverse(root, TREE_NO);
-
+/*
         System.out.println("中序遍历  begin!");
         //中序遍历这棵树  预期 0 4 8 20 50 540
         TREE_NO = 0;
@@ -33,6 +36,9 @@ public class binaryTree {
         //后序遍历这棵树   预期0 8 4 20 540 50
         TREE_NO = 0;
         postOrderTraverse(root, TREE_NO);
+        */
+
+
     }
 
 

@@ -22,7 +22,28 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+		<common.lang3.version>3.4</common.lang3.version>
+		<pagehelper.version>4.1.1</pagehelper.version>
+		<fastjson.version>1.2.17</fastjson.version>
+		<swagger2-version>2.6.1</swagger2-version>
 	</properties>
+
+	<!-- 项目的部署配置：指定Maven分发构件的位置?mvn deploy  -->
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Releases Repositories</name>
+			<url>http://localhost:8081/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Snapshots Repositories</name>
+			<url>http://localhost:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<dependencies>
 		<dependency>
@@ -36,6 +57,29 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- 公共组件 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${common.lang3.version}</version>
+		</dependency>
+		<!--fast json-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
+		</dependency>
+		<!--swagger2-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger2-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger2-version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

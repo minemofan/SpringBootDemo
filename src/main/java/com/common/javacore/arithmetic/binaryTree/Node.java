@@ -1,4 +1,4 @@
-package com.common.javacore.binaryTree;
+package com.common.javacore.arithmetic.binaryTree;
 
 /**
  * Created by Administrator on 2017/8/6.
