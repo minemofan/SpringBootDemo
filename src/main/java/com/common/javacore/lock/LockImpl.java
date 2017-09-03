@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Created by Administrator on 2017/7/24.
  */
 public class LockImpl implements Runnable {
-    private volatile int tickets = 5;          // 定义票
+    private volatile int tickets = 5;           // 定义票
     private Lock lock = new ReentrantLock();     // 定义锁对象
     public void run() {
         while (true) {

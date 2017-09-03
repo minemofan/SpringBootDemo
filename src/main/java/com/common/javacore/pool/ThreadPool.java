@@ -27,6 +27,10 @@ public class ThreadPool {
 
     /*
      * 任务队列，作为一个缓冲,List线程不安全
+     * add() 往likedlist中加入元素
+     * remove(int index) 根据下标去除元素，并从链中删除
+     * wait() 休眠
+     * notify() 唤醒
      */
     private List<Runnable> taskQueue = new LinkedList<Runnable>();
 
@@ -114,7 +118,7 @@ public class ThreadPool {
                         }
                     }
                     if(!taskQueue.isEmpty()){
-                        //取出任务
+                        //取出任务,并从队列中删除
                         runnable = taskQueue.remove(0);
                     }
 
