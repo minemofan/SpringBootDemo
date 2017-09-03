@@ -48,8 +48,8 @@ public class mergeSortTest {
     private static void merge(int[] a, int left, int mid, int right) {
         int[] tmp = new int[a.length];
         int r1 = mid + 1;
-        int tIndex = left;
-        int cIndex = left;
+        int tIndex = left;  //用来做交换介质的下标
+        int cIndex = left;  //用来做数据拷贝到原数组a的下标
 
         // 逐个归并
         while(left <= mid && r1 <= right) {
