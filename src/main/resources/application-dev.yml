@@ -1,0 +1,4 @@
+app:
+  sb: Spring Boot Dev
+  name: app Dev
+  des: "Hello ${app.sb}, ${app.name}!"

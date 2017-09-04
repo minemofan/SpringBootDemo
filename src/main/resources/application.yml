@@ -13,8 +13,7 @@ spring:
       force: true
   messages:
     encoding: UTF-8
-app:
-  sb: Spring Boot
-  name: app
-  des: "Hello ${app.sb}, ${app.name}!"
+  profiles:
+    active: dev   # 多环境切换
+
 

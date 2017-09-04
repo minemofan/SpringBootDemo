@@ -1,4 +1,4 @@
-package com.example.web;
+package com.example.holle;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by Administrator on 2017/6/11.
  * Description 全局的配置文件读取
+ *  1、EnableAutoConfiguration 开启自动配置
+ *  2、
+ *  3、
  */
 @RestController
 @EnableAutoConfiguration
