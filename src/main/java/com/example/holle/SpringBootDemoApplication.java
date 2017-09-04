@@ -35,7 +35,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @Configuration可理解为用spring的时候xml里面的<beans>标签；是 Spring 3.X 后提供的注解，用于取代 XML 来配置 Spring。
  */
 @SpringBootApplication
-@ComponentScan("com.example.holle,com.example.prop")
+@ComponentScan(basePackages = {"com.example.holle","com.example.prop"})
 public class SpringBootDemoApplication {
 
 	public static void main(String[] args) {
