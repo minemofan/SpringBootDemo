@@ -1,11 +1,25 @@
-package com.example.holle;
+package com;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /*
-名称 	说明
+ * Titel	启动类
+ * Description
+ * 名称 	说明
  * spring-boot-starter 	核心 POM，包含自动配置支持、日志库和对 YAML 配置文件的支持。
  * spring-boot-starter-amqp 	通过 spring-rabbit 支持 AMQP。
  * spring-boot-starter-aop 	包含 spring-aop 和 AspectJ 来支持面向切面编程（AOP）。
@@ -34,14 +48,43 @@ import org.springframework.context.annotation.ComponentScan;
  * @SpringBootApplication	一个@SpringbootApplication相当于@Configuration,@EnableAutoConfiguration和 @ComponentScan 并具有他们的默认属性值
  * @Configuration可理解为用spring的时候xml里面的<beans>标签；是 Spring 3.X 后提供的注解，用于取代 XML 来配置 Spring。
  */
+@RestController
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.example.holle","com.example.prop"})
+@ComponentScan(basePackages = {"com.example.holle"
+		,"com.example.prop","com.common.prop"
+		,"com.core"})
+@Configuration
+@EnableSwagger2
 public class SpringBootDemoApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(SpringBootDemoApplication.class, args);
 	}
 
+	@Bean
+	public Docket createApi(){
+		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
+				.apis(RequestHandlerSelectors.basePackage("com.zzp.controller"))
+				.paths(PathSelectors.any())
+				.build();
+	}
 
+	private ApiInfo apiInfo(){
+		return new ApiInfoBuilder()
+				.title("API文档")
+				.description("API使用即参数定义")
+				.termsOfServiceUrl("http://blog.csdn.net/qq_31001665")
+				.contact("ZZP")
+				.version("0.1")
+				.build();
+	}
+
+	/**
+	 * Description  大神级响应
+	 * @return
+	 */
+	@RequestMapping(value = "/",method = RequestMethod.GET)
+	public String helloWorld(){
+		return "Hello World";
+	}
 }

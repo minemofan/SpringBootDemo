@@ -2,3 +2,40 @@ app:
   sb: Spring Boot Dev
   name: app Dev
   des: "Hello ${app.sb}, ${app.name}!"
+
+  ######################## JDBC MySQL  alibaba Druid 连接池 ########################
+  ## initialSize：初始化连接大小
+  ## maxActive：连接池最大使用连接数量>>最大并发连接数
+  ## maxIdle：最大空闲连接数
+  ## minIdle：连接池最小空闲
+  ## maxWait：配置获取连接等待超时的时间
+  #removeAbandoned：超过时间限制是否回收
+  #removeAbandonedTimeout：超过时间限制多长
+  #timeBetweenEvictionRunsMillis：配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+  #minEvictableIdleTimeMillis：配置一个连接在池中最小生存的时间，单位是毫
+  ## validationQuery：用来检测连接是否有效的sql，要求是一个查询语句
+  #testWhileIdle：申请连接的时候检测
+  #testOnBorrow：申请连接时执行validationQuery检测连接是否有效，配置为true会降低性能
+  #testOnReturn：归还连接时执行validationQuery检测连接是否有效，配置为true会降低性能
+  #poolPreparedStatements
+  #maxPoolPreparedStatementPerConnectionSize
+  ##filter：    监控统计用的filter:stat;日志用的filter:log4j; 防御SQL注入的filter:wall。需要在web.xml中加入servlet、filter;否则报错。
+  #访问监控页面：http://ip：port/projectName/druid/index.html
+datasource:
+  jdbc:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost/springmvcmybatis_schema?useUnicode=true&amp;characterEncoding=UTF-8
+    username: root
+    password: mofan123
+    maxActive: 10
+    maxWait: 30000
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost/springmvcmybatis_schema?useUnicode=true&amp;characterEncoding=UTF-8
+    username: root
+    password: mofan123
+
+
+
+

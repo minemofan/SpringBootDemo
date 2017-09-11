@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 这里namespace必须是xxxxMapper.java接口的路径，不然要运行的时候要报错 “is not known to the MapperRegistry” -->
+<mapper namespace="com.core.dao.mapper.ITestUserMapper">
+    <!-- 返回结果集1 (结果集映射)  -->
+    <resultMap type="com.core.pojo.po.TestUserPO" id="BaseResultMap">
+        <id column="u_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <result column="u_name" property="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="u_type" property="type" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="u_money" property="money" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+        <result column="u_birthdate" property="birthdate" jdbcType="DATE" javaType="java.util.Date"/>
+        <result column="u_time" property="time" jdbcType="TIME" javaType="java.sql.Time"/>
+        <result column="u_remark" property="remark" jdbcType="BLOB" javaType="java.lang.String"/>
+    </resultMap>
+
+    <!-- SELECT公共列表1 -->
+    <sql id="Base_Column_List">
+        u_id,u_name,u_type,u_money,u_birthdate,u_time,u_remark
+    </sql>
+
+    <!-- 数据操纵语言  DML -->
+    <!-- DML 新增 -->
+    <insert id="insert" parameterType="com.core.pojo.po.TestUserPO">
+        INSERT test_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                u_name,
+            </if>
+            <if test="type != null">
+                u_type,
+            </if>
+            <if test="money != null">
+                u_money,
+            </if>
+            <if test="birthdate != null">
+                u_birthdate,
+            </if>
+            <if test="time != null">
+                u_time,
+            </if>
+            <if test="remark != null">
+                u_remark,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                #{money,jdbcType=DECIMAL},
+            </if>
+            <if test="birthdate != null">
+                #{birthdate,jdbcType=DATE},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=TIME},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=BLOB},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- DML 修改  	使用set标签可以将动态的配置SET 关键字，和剔除追加到条件末尾的任何不相关的逗号。 	 -->
+    <update id="updateById" parameterType="com.core.pojo.vo.DemoVO">
+        UPDATE  test_user
+        <set>
+            <if test="name != null and name != ''">
+                u_name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null and type != ''">
+                u_type = #{type,jdbcType=DECIMAL},
+            </if>
+            <if test="money != null and money != ''">
+                u_money = #{money,jdbcType=DATE},
+            </if>
+            <if test="birthdate != null and birthdate != ''">
+                u_birthdate = #{birthdate,jdbcType=TIME},
+            </if>
+            <if test="time != null and time != ''">
+                u_time = #{time,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null and remark != ''">
+                u_remark = #{remark,jdbcType=BLOB},
+            </if>
+        </set>
+        WHERE u_id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- DML 删除 -->
+    <delete id="deleteByName" parameterType="java.lang.String">
+        DELETE FROM test_user
+        WHERE u_name = #{_parameter,jdbcType=VARCHAR}
+    </delete>
+
+    <!-- 数据查询语言  DQL -->
+    <!-- DQL 简单查询 -->
+    <select id="queryAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM
+        test_user
+    </select>
+    <!-- DQL 条件查询  -->
+    <!-- DQL 简单查询    单个参数的传入和判断必须用mybatis内置对象_parameter  -->
+    <select id="queryAllById"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM
+        test_user
+        <where>
+            <if test="_parameter != null and _parameter != ''">
+                u_id = #{id,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+    <!-- DQL 简单查询    传Map WHERE标签：如果标签返回的内容是以AND 或OR 开头的，则它会剔除掉。  -->
+    <select id="queryAllByMap"  parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM
+        test_user
+        <where>
+            <if test="ids != null and ids != ''">
+                AND u_id in
+                <!-- 此处的demoNames需要传入一个数组 -->
+                <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="name != null and name != ''">
+                AND u_name like CONCAT('%','${name}','%' )
+            </if>
+        </where>
+    </select>
+    <!-- DQL 翻页查询   传Map
+        Limit :
+            select * from table limit m,n 其中m是指记录开始的index，从0开始，表示第一条记录；n是指从第m+1条开始，取n条。
+            select * from tablename limit 2,4 即取出第3条至第6条，4条记录
+        序号 :
+            @row := @row + 1 as xh
+        if else if else语句:
+            choose when when otherwise
+    -->
+    <select id="queryByLimit" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        ,@row := @row + 1 as xh
+        FROM test_user
+        ,(SELECT @row := 0) r
+        WHERE 1=1
+        ORDER BY u_id
+        <choose>
+            <when test="offset != null and pageSize != null">
+                limit ${offset},${pageSize}
+            </when>
+            <when test="offset != null and pageSize == null">
+                limit ${offset},10
+            </when>
+            <when test="offset == null and pageSize != null">
+                limit 0,${pageSize}
+            </when>
+            <otherwise>
+                limit 0,10
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>
