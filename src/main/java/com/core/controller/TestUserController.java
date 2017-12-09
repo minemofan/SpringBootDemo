@@ -1,5 +1,6 @@
 package com.core.controller;
 
+import com.common.utils.LoggerUtils;
 import com.core.pojo.dto.TestUserDTO;
 import com.core.service.impl.TestUserServiceImpl;
 import org.slf4j.Logger;
@@ -22,10 +23,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/testuser")
 public class TestUserController {
 
-    private static Logger logger = LoggerFactory.getLogger(TestUserController.class);
+    protected static Logger _logger = LoggerFactory.getLogger(TestUserController.class);
 
     // @Autowired
     private TestUserServiceImpl iTestUserService;
+
+
 
     /**
      * Description 基础接口
@@ -44,8 +47,12 @@ public class TestUserController {
      * @return
      */
     @RequestMapping(value = "/query",method = RequestMethod.POST)
-    public String getUserById(@RequestBody TestUserDTO testUserDTO){
-        logger.info("testUserDTO:"+ testUserDTO);
+    public String query(@RequestBody TestUserDTO testUserDTO){
+
+        LoggerUtils.info(_logger, "[testUser查询接口]testUserDTO:"+ testUserDTO);
+
+        LoggerUtils.info(_logger, "[testUser查询接口]日志参数1：{0},日志参数2：{1}。",123, "OneTwoThree");
+
         return "Welcome TestUserController！id:"+ testUserDTO.getName();
     }
 
