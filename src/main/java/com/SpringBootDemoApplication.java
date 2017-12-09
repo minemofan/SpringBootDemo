@@ -47,12 +47,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  *  				就不会被spring扫描到，更不会装入spring容器中。
  * @SpringBootApplication	一个@SpringbootApplication相当于@Configuration,@EnableAutoConfiguration和 @ComponentScan 并具有他们的默认属性值
  * @Configuration可理解为用spring的时候xml里面的<beans>标签；是 Spring 3.X 后提供的注解，用于取代 XML 来配置 Spring。
+ *
  */
 @RestController
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.example.holle"
 		,"com.example.prop","com.common.prop"
-		,"com.core"})
+		,"com.core.dao.mapper.model","com.core.controller"})
 @Configuration
 @EnableSwagger2
 public class SpringBootDemoApplication {

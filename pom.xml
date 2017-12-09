@@ -33,20 +33,16 @@
 		<pagehelper.version>4.1.1</pagehelper.version>
 		<swagger2-version>2.6.1</swagger2-version>
 		<swagger-springmvc.version>0.9.5</swagger-springmvc.version>
+		<alibaba.druid.version>1.0.20</alibaba.druid.version>
 	</properties>
 
 	<!-- 项目的部署配置：指定Maven分发构件的位置?mvn deploy  -->
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
-			<name>Releases Repositories</name>
-			<url>http://localhost:8081/nexus/content/repositories/releases</url>
+			<name>Alipay Releases</name>
+			<url>http://mvn.dev.alipay.net:8081/artifactory/content/repositories/Alipay-Releases/</url>
 		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>Snapshots Repositories</name>
-			<url>http://localhost:8081/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
 	</distributionManagement>
 
 	<dependencies>
@@ -65,6 +61,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<!-- druid阿里巴巴数据库连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${alibaba.druid.version}</version>
 		</dependency>
 		<!-- JSP页面更改成thymeleaf模板 -->
 		<dependency>
