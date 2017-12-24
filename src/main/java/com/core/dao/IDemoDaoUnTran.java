@@ -1,8 +1,11 @@
-package com.core.service;
+package com.core.dao;
 
 import java.util.List;
 
-public interface ITestUserService {
+/**
+ * Description 无事务实验Demo
+ */
+public interface IDemoDaoUnTran {
 
     public String getNameTMock(String id);
 

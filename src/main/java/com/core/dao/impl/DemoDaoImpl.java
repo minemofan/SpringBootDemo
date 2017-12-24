@@ -12,14 +12,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Component
-@Repository("iDemoDao")
+//@Component
+//@Repository("iDemoDao")
 public class DemoDaoImpl implements IDemoDao {
 	
 	//@Resource
 	private SqlSessionTemplate sqlSession;
 	
-	private static final String sqlStr = "org.minemofan.core.mapper.demo.DemoMapper.";
+	private static final String sqlStr = "com.core.dao.mapper.ITestUserMapper.";
 	
 	@Override
 	public List<TestUserDTO> queryOne2One(Map<String,Object> param){

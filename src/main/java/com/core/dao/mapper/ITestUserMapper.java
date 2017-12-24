@@ -4,8 +4,8 @@ import com.core.pojo.dto.TestUserDTO;
 import com.core.pojo.po.TestUserPO;
 import com.core.pojo.vo.DemoVO;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Map;
 

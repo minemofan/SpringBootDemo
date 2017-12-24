@@ -4,5 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
+        <package name="com.core.dao.mapper"/>
     </typeAliases>
+    <mappers>
+        <mapper resource="mappers/*Mapper.xml"/>
+    </mappers>
 </configuration>

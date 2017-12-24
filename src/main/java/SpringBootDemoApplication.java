@@ -1,5 +1,6 @@
 package com;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -51,9 +52,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @RestController
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.example.holle"
-		,"com.example.prop","com.common.prop"
-		,"com.core.dao.mapper.model","com.core.controller"})
+@ComponentScan(basePackages = {"com.example.holle","com.example.prop","com.example.junit"
+		,"com.common.prop"
+		,"com.core.controller"
+		,"com.core.service","com.core.service.impl"
+		,"com.core.dao","com.core.dao.impl"
+		,"com.core.pojo.dto","com.core.pojo.po","com.core.pojo.vo"})
+//@MapperScan("com.core.dao.mapper")
 @Configuration
 @EnableSwagger2
 public class SpringBootDemoApplication {

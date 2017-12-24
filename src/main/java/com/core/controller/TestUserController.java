@@ -1,5 +1,6 @@
 package com.core.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.common.utils.LoggerUtils;
 import com.core.pojo.dto.TestUserDTO;
 import com.core.service.impl.TestUserServiceImpl;
@@ -8,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created on 2016-01-01
@@ -25,7 +28,7 @@ public class TestUserController {
 
     protected static Logger _logger = LoggerFactory.getLogger(TestUserController.class);
 
-    // @Autowired
+    @Autowired
     private TestUserServiceImpl iTestUserService;
 
 
@@ -56,7 +59,11 @@ public class TestUserController {
         return "Welcome TestUserController！id:"+ testUserDTO.getName();
     }
 
-
+    @RequestMapping(value = "/tmock",method = RequestMethod.GET)
+    public String queryTMock(@RequestParam String id){
+        List<String> list = iTestUserService.getListTMock(id);
+        return JSON.toJSONString(list);
+    }
 
 
 
