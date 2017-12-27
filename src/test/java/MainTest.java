@@ -1,3 +1,5 @@
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +14,15 @@ import java.util.List;
  *      ，所以用static修饰
  * Ignore：暂不执行该测试方法
  */
-public class JunitTest {
+public class MainTest {
 
     public static void main(String[] args) {
+        MainTest mainTest = new MainTest();
+        MainTest.subListTest();
+    }
+
+
+    private static void compareListTest(){
         List<String> list1 = new ArrayList<>();
         list1.add("1");
 
@@ -25,5 +33,19 @@ public class JunitTest {
         System.out.println(list1.containsAll(list2));
         System.out.println(list2.containsAll(list1));
     }
+
+
+    private static void subListTest(){
+        List<String> list = Lists.newArrayList();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+
+        List<String> lili = list.subList(1,3);
+        System.out.println(lili.toString());
+
+    }
+
 
 }

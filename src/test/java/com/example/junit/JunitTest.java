@@ -2,6 +2,7 @@ package com.example.junit;
 
 import com.common.utils.LoggerUtils;
 import com.core.controller.TestUserController;
+import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -330,5 +331,53 @@ public class JunitTest {
         LoggerUtils.info(LOGGER,"单元测试      End!");
     }
 
+    /**
+     * Descrption
+     */
+    @Test
+    public void testGetListToAnswer(){
+        LoggerUtils.info(LOGGER, "单元测试      Begin!");
+
+        //1.构造入参
+        String param = "壹贰叄";
+
+        List<String> rlist1 = Lists.newArrayList();
+        rlist1.add("壹");
+        rlist1.add("贰");
+        rlist1.add("叄");
+
+        List<String> rlist2 = Lists.newArrayList();
+        rlist2.add("1");
+
+        //2.mock返回值
+        Mockito.when(mockitoServiceImplMock.getList(Mockito.anyString())).thenAnswer(new Answer<Object>() {
+            @Override
+            public List<String> answer(InvocationOnMock invocationOnMock) throws Throwable {
+                Object[] args = invocationOnMock.getArguments();
+                String str = (String)args[0];
+                if(param.equals(str)){
+                    rlist1.add("return1");
+                    return rlist1;
+                }else{
+                    rlist2.add("return2");
+                    return rlist2;
+                }
+            }
+        });
+
+        //3.调用服务
+        //调用一
+        List<String> result1 = mockitoServiceImplMock.getList(param);
+        LoggerUtils.info(LOGGER, "result1:{0}", result1);
+
+        //调用二
+        List<String> result2 = mockitoServiceImplMock.getList(param + "123");
+        LoggerUtils.info(LOGGER, "result2:{0}", result2);
+
+        Assert.assertEquals(4, result1.size());
+        Assert.assertEquals(2, result2.size());
+
+        LoggerUtils.info(LOGGER,"单元测试      End!");
+    }
 
 }
