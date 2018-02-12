@@ -10,10 +10,6 @@ import java.util.Map;
 
 public interface ITestUserService {
 
-    public String getNameTMock(String id);
-
-    public List<String> getListTMock(String name);
-
 
     /**
      * Description： 增加

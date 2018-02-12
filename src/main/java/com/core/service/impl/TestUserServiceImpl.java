@@ -3,7 +3,6 @@ package com.core.service.impl;
 import com.common.utils.DateUtil;
 import com.common.utils.LoggerUtils;
 import com.core.dao.ITestUserDao;
-import com.core.dao.ITestUserDaoUnTran;
 import com.core.dao.mapper.ITestUserMapper;
 import com.core.pojo.dto.TestMobileDTO;
 import com.core.pojo.dto.TestUserDTO;
@@ -25,8 +24,6 @@ public class TestUserServiceImpl implements ITestUserService{
 
     protected static Logger _logger = LoggerFactory.getLogger(TestUserServiceImpl.class);
 
-    @Autowired
-    private ITestUserDaoUnTran iDemoDaoUnTran;
 
     /**
      * DAO的方式  */
@@ -35,22 +32,6 @@ public class TestUserServiceImpl implements ITestUserService{
 
     @Autowired
     private ITestUserMapper iTestUserMapper;
-
-
-
-
-    @Override
-    public String getNameTMock(String id) {
-        id = "service" + id;
-        return iDemoDaoUnTran.getNameTMock(id);
-    }
-
-    @Override
-    public List<String> getListTMock(String name) {
-        name = "serviceToId" + name;
-        String rstr = iDemoDaoUnTran.getNameTMock(name);
-        return iDemoDaoUnTran.getListTMock(rstr);
-    }
 
 
 

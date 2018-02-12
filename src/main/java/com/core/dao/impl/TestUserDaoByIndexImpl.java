@@ -1,13 +1,13 @@
 package com.core.dao.impl;
 
-import com.core.dao.ITestUserDaoUnTran;
+import com.core.dao.ITestUserDaoByIndex;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TestUserDaoUnTranImpl implements ITestUserDaoUnTran {
+public class TestUserDaoByIndexImpl implements ITestUserDaoByIndex {
 
 
 

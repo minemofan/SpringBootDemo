@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 这里namespace必须是xxxxMapper.java接口的路径，不然要运行的时候要报错 “is not known to the MapperRegistry” --> 
+<mapper namespace="org.minemofan.core.mapper.demo.TestUserDaoMapper">
+<!-- 返回结果集1 (结果集映射)  -->
+	<resultMap type="com.core.pojo.po.TestUserPO" id="BaseResultMap">
+		<id column="u_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+		<result column="u_name" property="name" jdbcType="VARCHAR" javaType="java.lang.String"/>	
+		<result column="u_type" property="type" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="u_money" property="money" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+		<result column="u_birthdate" property="birthdate" jdbcType="DATE" javaType="java.util.Date"/>
+		<result column="u_time" property="time" jdbcType="TIME" javaType="java.sql.Time"/>
+		<result column="u_remark" property="remark" jdbcType="BLOB" javaType="java.lang.String"/>
+	</resultMap>
+<!-- 
+	总结
+	一对一   查询：
+		1、使用association实现映射。
+			property 为TestUserDTO中的TestIdCardDTO属性名称。
+		2、SELECT(Base_Column_List2)各个表输出字段名称不能有相同的，最好为每张表输出字段起别名区分。
+ -->
+<!-- 返回结果集1(一对一) -->
+	<resultMap type="com.core.pojo.dto.TestUserDTO" id="One2OneResult">
+		<id column="u_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+		<result column="u_name" property="name" jdbcType="VARCHAR" javaType="java.lang.String"/>	
+		<result column="u_type" property="type" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="u_money" property="money" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+		<result column="u_birthdate" property="birthdate" jdbcType="DATE" javaType="java.util.Date"/>
+		<result column="u_time" property="time" jdbcType="TIME" javaType="java.sql.Time"/>
+		<result column="u_remark" property="remark" jdbcType="BLOB" javaType="java.lang.String"/>
+		<association property="idCard" column="id" javaType="com.core.pojo.dto.TestIdCardDTO">
+			<id column="i_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+			<result column="i_code" property="code" jdbcType="VARCHAR" javaType="java.lang.String"/>	
+			<result column="i_remark" property="remark" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		</association>
+	</resultMap>
+<!-- 
+	总结
+	一对多 查询：
+		1、子集Select结果集必须指定别名，同时配置resultMap时column指向别名。
+-->		
+	<resultMap id="One2ManyResult" type="com.core.pojo.dto.TestUserDTO">
+		<id column="u_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+		<result column="u_name" property="name" jdbcType="VARCHAR" javaType="java.lang.String"/>	
+		<result column="u_type" property="type" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="u_money" property="money" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+		<result column="u_birthdate" property="birthdate" jdbcType="DATE" javaType="java.util.Date"/>
+		<result column="u_time" property="time" jdbcType="TIME" javaType="java.sql.Time"/>
+		<result column="u_remark" property="remark" jdbcType="BLOB" javaType="java.lang.String"/>
+		<collection property="mobiles" resultMap="One2ManyCollection"></collection>
+	</resultMap>
+	<resultMap id="One2ManyCollection" type="com.core.pojo.dto.TestMobileDTO">
+		<id column="m_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+		<result column="m_mobile_num" property="mobileNum" jdbcType="INTEGER" javaType="java.lang.Long"/>
+		<result column="m_remark" property="remark" jdbcType="VARCHAR" javaType="java.lang.String"/>
+	</resultMap>
+<!-- 
+	总结
+	多对一 查询：
+		1、跟一对多不一样的地方，就是子表的列不需要别名
+	-->	
+	<resultMap type="com.core.pojo.dto.TestMobileDTO" id="Many2OneResult">
+		<id column="m_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+		<result column="m_mobile_num" property="mobileNum" jdbcType="INTEGER" javaType="java.lang.Long"/>
+		<result column="m_remark" property="remark" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<association property="user" resultMap="Many2OneAssociation"/>
+	</resultMap>
+	<resultMap id="Many2OneAssociation" type="com.core.pojo.dto.TestUserDTO">
+		<id column="u_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+		<result column="u_name" property="name" jdbcType="VARCHAR" javaType="java.lang.String"/>	
+		<result column="u_type" property="type" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="u_money" property="money" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+		<result column="u_birthdate" property="birthdate" jdbcType="DATE" javaType="java.util.Date"/>
+		<result column="u_time" property="time" jdbcType="TIME" javaType="java.sql.Time"/>
+		<result column="u_remark" property="remark" jdbcType="BLOB" javaType="java.lang.String"/>
+	</resultMap>
+
+
+<!-- 
+	总结
+	多对多查询：
+		方法1、一对多的方式实现
+			没有hibernate那种需要配置第三方表的情况，直接当作一对多来处理即可。
+			实体也不需要配置第三方表
+		方法2、传统的多对多方式
+			将第三方表当作多方，做一对多查询。
+			再将第三方表与目标表做，一对一查询。
+			最终得到初始表语目标表的多对多关联查询
+-->
+	<resultMap id="Many2ManyResult1" type="com.core.pojo.dto.TestUserDTO" extends="BaseResultMap">
+		<collection property="roles" column="user_id"  ofType="com.core.pojo.dto.TestRoleDTO">
+			<id column="r_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+			<result column="r_name" property="roleName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		</collection>
+	</resultMap>
+  
+	<resultMap id="Many2ManyResult2" type="com.core.pojo.dto.TestUserDTO" extends="BaseResultMap">
+		<collection property="userRoles" column="{user_id,role_id}"  ofType="com.core.pojo.dto.TestUserRoleDTO">
+			<result column="user_id" property="userId" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+			<result column="role_id" property="roleId" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+			<association property="role" column="r_id" javaType="com.core.pojo.dto.TestRoleDTO">
+				<id column="r_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+				<result column="r_name" property="roleName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			</association> 
+		</collection>
+	</resultMap>
+
+
+<!-- SELECT公共列表1 -->
+	<sql id="Base_Column_List">
+		u_id,u_name,u_type,u_money,u_birthdate,u_time,u_remark
+	</sql>
+<!-- SELECT公共列表2 -->	
+	<sql id="Base_Column_List2">
+		t.u_id,t.u_name,t.u_type,t.u_money,t.u_birthdate,t.u_time,t.u_remark,d.i_id,d.i_code,d.i_remark
+	</sql>
+	
+<!-- 一对一  -->
+	<select id="queryOne2One" resultMap="One2OneResult" parameterType="java.util.Map">
+		SELECT 
+			<include refid="Base_Column_List2" />
+		FROM test_user t,test_idcard d
+		WHERE 1=1 
+			AND t.u_id = d.i_id
+			<if test="name != null and name != ''">
+				AND t.u_name = #{name,jdbcType=VARCHAR} 
+			</if>
+	</select>
+<!-- 一对多 -->
+ 	<select id="queryOne2Many" resultMap="One2ManyResult" parameterType="java.util.Map">
+ 		SELECT u.*,m.*
+		FROM test_user as u
+			RIGHT JOIN test_mobile as m
+								ON u.u_id = m.user_id
+		WHERE 1=1
+		<if test="name != null and name != ''" >
+            AND u.u_name = #{name,jdbcType=VARCHAR} 
+        </if> 		
+ 	</select>
+<!-- 多对一 -->
+	<select id="queryMany2One" resultMap="Many2OneResult" parameterType="java.util.Map">
+		SELECT u.*,m.*
+		FROM test_mobile as m
+			LEFT JOIN test_user as u
+				ON m.user_id = u.u_id
+		WHERE 1=1
+		<if test="name != null and name != ''" >
+            AND u.u_name = #{name,jdbcType=VARCHAR} 
+        </if> 	
+	</select>
+<!-- 多对多  方式1 -->	
+	<select id="queryMany2Many1" parameterType="java.util.Map" resultMap="Many2ManyResult1">
+		SELECT 
+		    u.*, r.r_name
+		FROM
+		    test_user AS u
+		        LEFT JOIN
+		    test_user_role AS l ON u.u_id = l.user_id
+		        LEFT JOIN
+		    test_role AS r ON r.r_id = l.role_id
+		WHERE
+		    1 = 1
+			<if test="name != null and name != ''" >
+            	AND u.u_name = #{name,jdbcType=VARCHAR} 
+        	</if> 	
+	</select>
+
+<!-- 多对多  方式2 -->
+	<select id="queryMany2Many2" parameterType="java.util.Map" resultMap="Many2ManyResult2">
+		SELECT 
+		     u.*
+		    ,r.r_name
+		    ,l.user_id
+		    ,l.role_id
+		FROM
+		    test_user AS u
+		        LEFT JOIN
+		    test_user_role AS l ON u.u_id = l.user_id
+		        LEFT JOIN
+		    test_role AS r ON r.r_id = l.role_id
+		WHERE
+		    1 = 1
+			<if test="name != null and name != ''" >
+            	AND u.u_name = #{name,jdbcType=VARCHAR} 
+        	</if>
+	</select>
+
+</mapper>

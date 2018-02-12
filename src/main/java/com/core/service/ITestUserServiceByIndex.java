@@ -1,14 +1,12 @@
-package com.core.dao;
+package com.core.service;
 
 import java.util.List;
 
-/**
- * Description 无事务实验Demo
- */
-public interface ITestUserDaoUnTran {
+public interface ITestUserServiceByIndex {
 
     public String getNameTMock(String id);
 
     public List<String> getListTMock(String name);
+
 
 }

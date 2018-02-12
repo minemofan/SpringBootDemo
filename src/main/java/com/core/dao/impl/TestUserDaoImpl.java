@@ -19,7 +19,7 @@ public class TestUserDaoImpl implements ITestUserDao {
 	@Resource
 	private SqlSessionTemplate sqlSession;
 	
-	private static final String sqlStr = "com.core.dao.mapper.ITestUserMapper.";
+	private static final String sqlStr = "org.minemofan.core.mapper.demo.TestUserDaoMapper.";
 	
 	@Override
 	public List<TestUserDTO> queryOne2One(Map<String,Object> param){
