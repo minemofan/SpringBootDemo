@@ -53,10 +53,16 @@
 	</distributionManagement>
 
 	<dependencies>
-		<!--spring boot的web依赖-->
+		<!-- spring boot 引入Web模块。自动配置：tomcat、springmvc、jackson等 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-boot-starter-logging</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!--测试模块所需要的依赖-->
 		<dependency>
@@ -72,22 +78,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
-		<!-- 日志框架logback
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-logging</artifactId>
-		</dependency> -->
 		<!-- 日志框架log4j2 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
@@ -109,6 +100,16 @@
 			<artifactId>druid</artifactId>
 			<version>${alibaba.druid.version}</version>
 		</dependency>
+		<!-- jsp页面支持 -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
 		<!-- JSP页面更改成thymeleaf模板 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -118,11 +119,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<!-- Spring-Mybatis -->
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
 		</dependency>
 		<!--支持使用 JDBC 访问数据库-->
 		<dependency>
@@ -140,16 +136,14 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${common.lang3.version}</version>
 		</dependency>
-		<!--swagger2-->
+
+
+		<!-- mybatis集成                                                  Start	-->
+		<!-- spring-boot整合mybatis -->
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>${swagger2-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${swagger2-version}</version>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 		<!--Mybatis-->
 		<dependency>
@@ -183,6 +177,27 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-connector-java.version}</version>
+		</dependency>
+		<!-- MyBatis提供了拦截器接口，我们可以实现自己的拦截器， 将其作为一个plugin装入到SqlSessionFactory中。 Github上有位开发者写了一个分页插件，我觉得使用起来还可以，挺方便的。
+                    Github项目地址： https://github.com/pagehelper/Mybatis-PageHelper -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+		<!-- mybatis集成                                                  End	-->
+
+
+		<!--swagger2-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger2-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger2-version}</version>
 		</dependency>
 		<!--Json Support-->
 		<dependency>
@@ -237,6 +252,21 @@
 			<classifier>runtime</classifier>
 			<version>${org.jacoco.agent.version}</version>
 			<scope>test</scope>
+		</dependency>
+        <!-- Google 谷歌 guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
+        </dependency>
+
+		<!-- devtools可以实现页面热部署（即页面修改后会立即生效，这个可以直接在application.properties文件中配置spring.thymeleaf.cache=false或者视图解析器设置缓存为false来实现），
+			实现类文件热部署（类文件修改后不会立即生效，待编译后生效），实现对属性文件的热部署。 即devtools会监听classpath下的文件变动，并且会立即重启应用（发生在保存时机），注意：因为其采用的虚拟机机制，该项重启是很快的 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+			<!-- optional=true,依赖不会传递，该项目依赖devtools；之后依赖SpringBoot1项目的项目如果想要使用devtools，需要重新引入 -->
 		</dependency>
 	</dependencies>
 

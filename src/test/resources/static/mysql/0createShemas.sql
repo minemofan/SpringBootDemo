@@ -1,0 +1,1 @@
+CREATE SCHEMA `test_boot` DEFAULT CHARACTER SET utf8 ;

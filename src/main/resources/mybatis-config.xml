@@ -7,6 +7,6 @@
         <package name="com.core.dao.mapper"/>
     </typeAliases>
     <mappers>
-        <mapper resource="mappers/*Mapper.xml"/>
+        <mapper resource="mybatis/mappers/*Mapper.xml"/>
     </mappers>
 </configuration>

@@ -46,7 +46,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  *  =====================================================================================
  * @ComponentScan	扫描包；如果不加上@ComponentScan，自动扫描该controller，那么该Controller
  *  				就不会被spring扫描到，更不会装入spring容器中。
- * @SpringBootApplication	一个@SpringbootApplication相当于@Configuration,@EnableAutoConfiguration和 @ComponentScan 并具有他们的默认属性值
+ * @SpringBootApplication
+ * 		Spring Boot项目的核心注解，主要目的是开启自动配置，自动扫描该类同级包以及子包；
+ * 		一个@SpringbootApplication相当于@Configuration,@EnableAutoConfiguration和 @ComponentScan 并具有他们的默认属性值。
  * @Configuration可理解为用spring的时候xml里面的<beans>标签；是 Spring 3.X 后提供的注解，用于取代 XML 来配置 Spring。
  *
  */
@@ -58,13 +60,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 		,"com.core.service","com.core.service.impl"
 		,"com.core.dao","com.core.dao.impl"
 		,"com.core.pojo.dto","com.core.pojo.po","com.core.pojo.vo"})
-//@MapperScan("com.core.dao.mapper")
+@MapperScan("com.core.dao.mapper")
 @Configuration
 @EnableSwagger2
 public class SpringBootDemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootDemoApplication.class, args);
+		// 启动spring boot应用
+		SpringApplication sa = new SpringApplication(SpringBootDemoApplication.class);
+
+		// 禁用devTools热部署
+		System.setProperty("spring.devtools.restart.enabled", "false");
+		// 禁用命令行更改application.properties属性
+		sa.setAddCommandLineProperties(false);
+
+		sa.run(args);
 	}
 
 	@Bean
