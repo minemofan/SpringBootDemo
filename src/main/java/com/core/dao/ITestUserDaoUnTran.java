@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Description 无事务实验Demo
  */
-public interface IDemoDaoUnTran {
+public interface ITestUserDaoUnTran {
 
     public String getNameTMock(String id);
 

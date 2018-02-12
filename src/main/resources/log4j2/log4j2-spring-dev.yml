@@ -1,5 +1,5 @@
 Configuration:
-  status: warn
+  status: info
 
 # Properties Begin
   Properties: # 定义全局变量
@@ -61,4 +61,5 @@ Configuration:
         AppenderRef:
           - ref: CONSOLE
           - ref: ROLLING_FILE
+
 # Loggers End

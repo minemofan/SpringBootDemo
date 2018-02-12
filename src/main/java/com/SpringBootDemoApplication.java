@@ -50,12 +50,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * 		Spring Boot项目的核心注解，主要目的是开启自动配置，自动扫描该类同级包以及子包；
  * 		一个@SpringbootApplication相当于@Configuration,@EnableAutoConfiguration和 @ComponentScan 并具有他们的默认属性值。
  * @Configuration可理解为用spring的时候xml里面的<beans>标签；是 Spring 3.X 后提供的注解，用于取代 XML 来配置 Spring。
- *
+ * @auther shihong.msh
  */
 @RestController
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.example.holle","com.example.prop","com.example.junit"
-		,"com.common.prop"
 		,"com.core.controller"
 		,"com.core.service","com.core.service.impl"
 		,"com.core.dao","com.core.dao.impl"

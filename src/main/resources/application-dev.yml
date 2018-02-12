@@ -24,7 +24,7 @@ app:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/test_boot?useUnicode=true&amp;characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/test_boot?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: mofan123
     type: com.alibaba.druid.pool.DruidDataSource
@@ -41,15 +41,19 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
+    tomcat:
+      validation-query: SELECT 1
+    dbcp2:
+      validation-query: SELECT 1
 
 #typeAliasesPackage：它一般对应我们的实体类所在的包，这个时候会自动取对应包中不包括包名的简单类名作为包括包名的别名
 #。多个package之间可以用逗号或者分号等来进行分隔。(value的值一定要是包的全名)
 mybatis:
-  config-location: classpath*:/mybatis-config.xml
-  #type-aliases-package: com.core.dao.mapper             #实体类所做包
-  #mapper-locations: classpath:mybatis/mappers/*Mapper.xml   #mapper.xml所在位置
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mappers/*Mapper.xml   #mapper.xml所在位置
 
-
-#日志框架-自定义 classpath:config/logback-spring-dev.xml
+#日志框架-自定义 classpath:config/logback-spring-dev.xml 多环境切换
 logging:
     config: classpath:log4j2/log4j2-spring-dev.yml
+
+

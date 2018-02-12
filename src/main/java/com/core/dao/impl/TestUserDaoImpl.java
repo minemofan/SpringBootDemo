@@ -3,20 +3,20 @@ package com.core.dao.impl;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
-import com.core.dao.IDemoDao;
+import com.core.dao.ITestUserDao;
 import com.core.pojo.dto.TestMobileDTO;
 import com.core.pojo.dto.TestUserDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-//@Component
-//@Repository("iDemoDao")
-public class DemoDaoImpl implements IDemoDao {
+import javax.annotation.Resource;
+
+@Component
+@Repository("iTestUserDao")
+public class TestUserDaoImpl implements ITestUserDao {
 	
-	//@Resource
+	@Resource
 	private SqlSessionTemplate sqlSession;
 	
 	private static final String sqlStr = "com.core.dao.mapper.ITestUserMapper.";
