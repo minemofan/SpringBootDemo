@@ -2,7 +2,6 @@ package com.core.dao.mapper;
 
 import com.core.pojo.dto.TestUserDTO;
 import com.core.pojo.po.TestUserPO;
-import com.core.pojo.vo.DemoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +20,9 @@ public interface ITestUserMapper {
 
     List<TestUserDTO> queryAllByMap(Map<String, Object> param);
 
-    void updateById(DemoVO vo);
+    int updateById(TestUserPO vo);
 
-    void deleteByName(String name);
+    int deleteByName(String name);
 
     List<TestUserDTO> queryByLimit(Map<String, Object> param);
 

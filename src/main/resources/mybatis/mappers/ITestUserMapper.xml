@@ -65,7 +65,7 @@
     </insert>
 
     <!-- DML 修改  	使用set标签可以将动态的配置SET 关键字，和剔除追加到条件末尾的任何不相关的逗号。 	 -->
-    <update id="updateById" parameterType="com.core.pojo.vo.DemoVO">
+    <update id="updateById" parameterType="com.core.pojo.po.TestUserPO">
         UPDATE  test_user
         <set>
             <if test="name != null and name != ''">
