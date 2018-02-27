@@ -47,7 +47,7 @@
 		<result column="u_birthdate" property="birthdate" jdbcType="DATE" javaType="java.util.Date"/>
 		<result column="u_time" property="time" jdbcType="TIME" javaType="java.sql.Time"/>
 		<result column="u_remark" property="remark" jdbcType="BLOB" javaType="java.lang.String"/>
-		<collection property="mobiles" resultMap="One2ManyCollection"></collection>
+		<collection property="mobiles" resultMap="One2ManyCollection" javaType="list"></collection>
 	</resultMap>
 	<resultMap id="One2ManyCollection" type="com.core.pojo.dto.TestMobileDTO">
 		<id column="m_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
@@ -88,12 +88,12 @@
 			最终得到初始表语目标表的多对多关联查询
 -->
 	<resultMap id="Many2ManyResult1" type="com.core.pojo.dto.TestUserDTO" extends="BaseResultMap">
-		<collection property="roles" column="user_id"  ofType="com.core.pojo.dto.TestRoleDTO">
+		<collection property="roles" column="user_id"  ofType="com.core.pojo.dto.TestRoleDTO" javaType="list">
 			<id column="r_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
 			<result column="r_name" property="roleName" jdbcType="VARCHAR" javaType="java.lang.String"/>
 		</collection>
 	</resultMap>
-  
+
 	<resultMap id="Many2ManyResult2" type="com.core.pojo.dto.TestUserDTO" extends="BaseResultMap">
 		<collection property="userRoles" column="{user_id,role_id}"  ofType="com.core.pojo.dto.TestUserRoleDTO">
 			<result column="user_id" property="userId" jdbcType="INTEGER" javaType="java.lang.Integer"/>
@@ -101,7 +101,7 @@
 			<association property="role" column="r_id" javaType="com.core.pojo.dto.TestRoleDTO">
 				<id column="r_id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
 				<result column="r_name" property="roleName" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			</association> 
+			</association>
 		</collection>
 	</resultMap>
 
@@ -167,7 +167,7 @@
 
 <!-- 多对多  方式2 -->
 	<select id="queryMany2Many2" parameterType="java.util.Map" resultMap="Many2ManyResult2">
-		SELECT 
+		SELECT
 		     u.*
 		    ,r.r_name
 		    ,l.user_id

@@ -138,10 +138,10 @@ public class TestUserController {
             String uname = dto.getName();
             LoggerUtils.info(_logger, "多对多查询：id:{0},user:{1},Role:{2}。", uid, uname, dto.getRoles().size());
         }
-        //多对多2
-        Map<String,Object> Many2ManyMap2 = new HashMap<String,Object>();
-        Many2ManyMap2.put("name", null);
+        /*多对多2    新版本mapper返回值映射报 NULL
+        Map<String,Object> Many2ManyMap2 = new HashMap<String, Object>();
         List<TestUserDTO> Many2ManyList2 = iTestUserService.queryMany2Many2(Many2ManyMap2);
+
 
         LoggerUtils.info(_logger, "[testUser查询接口]多对多查询2:{0}。", Many2ManyList2);
 
@@ -160,7 +160,7 @@ public class TestUserController {
             }
             sb.append("]");
             LoggerUtils.info(_logger, "多对多查询2：id:{0},user:{1},Role:{2}。", uid, uname, sb.toString());
-        }
+        }*/
 
         modelAndView.setViewName("index");		//返回JSP
         return JSON.toJSONString(modelAndView);
