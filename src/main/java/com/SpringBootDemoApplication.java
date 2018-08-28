@@ -58,7 +58,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 		,"com.core.controller"
 		,"com.core.service","com.core.service.impl"
 		,"com.core.dao","com.core.dao.impl"
-		,"com.core.pojo.dto","com.core.pojo.po","com.core.pojo.vo"})
+		,"com.core.pojo.dto","com.core.pojo.po","com.core.pojo.vo", "com.middleware.es.api"})
 @MapperScan("com.core.dao.mapper")
 @Configuration
 @EnableSwagger2
@@ -100,6 +100,6 @@ public class SpringBootDemoApplication {
 	 */
 	@RequestMapping(value = "/",method = RequestMethod.GET)
 	public String helloWorld(){
-		return "Hello World";
+		return "Hello World!!!!";
 	}
 }

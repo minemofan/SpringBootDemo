@@ -263,6 +263,7 @@ public class JunitTest {
 
     /**
      * Description 验证异常
+     * @Test(expected= IndexOutOfBoundsException.class)
      * 构造mock的函数抛出异常，当然我们可以在testng中设置expectedExceptions以显示声明会抛出指定类型的异常，这样该条case执行的时候就会成功
      */
     @Test
