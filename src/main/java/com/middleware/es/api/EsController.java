@@ -13,7 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Titel 集成ElasticSearch
+ * Description
+ *  1、需要打开application-dev.yml配置中ES相关配置（前提：启动本地ES）
+ *  2、
  * @author shihong.msh
  * @version $Id: EsController.java, v 0.1 2018年08月28日 上午10:52 shihong.msh Exp $
  */
